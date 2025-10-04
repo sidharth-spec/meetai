@@ -55,7 +55,7 @@ export const DashBoardSidebar = () => {
           <SidebarGroupContent>
             <SidebarMenu>
               {firstSection.map((item) => (
-                <SidebarMenuItem>
+                <SidebarMenuItem key={item.href}>
                   <SidebarMenuButton
                     className={cn(
                       "h-10 hover:bg-linear-to-r/oklch border border-transparent hover:border-[#5D6B68]/10 from-sidebar-accent from-5% via-30% via-sidebar/50 to-sidebar/50",
@@ -83,7 +83,7 @@ export const DashBoardSidebar = () => {
           <SidebarGroupContent>
             <SidebarMenu>
               {secondSection.map((item) => (
-                <SidebarMenuItem>
+                <SidebarMenuItem key={item.href}>
                   <SidebarMenuButton
                     className={cn(
                       "h-10 hover:bg-linear-to-r/oklch border border-transparent hover:border-[#5D6B68]/10 from-sidebar-accent from-5% via-30% via-sidebar/50 to-sidebar/50",
