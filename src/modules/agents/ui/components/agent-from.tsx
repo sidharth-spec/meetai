@@ -117,7 +117,7 @@ export const AgentForm = ({
             </FormItem>
           )}
         />
-        <div>
+        <div className="flex justify-between gap-x-2">
           {onCancel && (
             <Button
               variant="ghost"
