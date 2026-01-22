@@ -17,6 +17,7 @@ import { UpcomingState } from "../components/upcoming-state";
 import { ActiveState } from "../components/active-state";
 import { CancelledState } from "../components/cancelled-state";
 import { ProcessingState } from "../components/processing-state";
+import { CompletedState } from "@/components/completed-state";
 
 interface Props {
   meetingId: string;
@@ -28,10 +29,10 @@ export const MeetingIdView = ({ meetingId }: Props) => {
   const queryClient = useQueryClient();
   const [RemoveConfirmation, confirmRemove] = useConfirm(
     "Are you sure?",
-    "The following action will remove this meeting"
+    "The following action will remove this meeting",
   );
   const { data } = useSuspenseQuery(
-    trpc.meetings.getOne.queryOptions({ id: meetingId })
+    trpc.meetings.getOne.queryOptions({ id: meetingId }),
   );
   const removeMeeting = useMutation(
     trpc.meetings.remove.mutationOptions({
@@ -39,7 +40,7 @@ export const MeetingIdView = ({ meetingId }: Props) => {
         queryClient.invalidateQueries(trpc.meetings.getMany.queryOptions({}));
         router.push("/meetings");
       },
-    })
+    }),
   );
   const handleRemoveMeeting = async () => {
     const ok = await confirmRemove();
@@ -68,7 +69,7 @@ export const MeetingIdView = ({ meetingId }: Props) => {
         />
         {isCancelled && <CancelledState />}
         {isProcessing && <ProcessingState />}
-        {isCompleted && <div>Completed</div>}
+        {isCompleted && <CompletedState data={data} />}
         {isActive && <ActiveState meetingId={meetingId} />}
         {isUpcoming && (
           <UpcomingState
