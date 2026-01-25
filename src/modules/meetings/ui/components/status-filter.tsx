@@ -9,7 +9,11 @@ import { CommandSelect } from "@/components/command-select";
 import { useMeetingsFilters } from "../../hooks/use-meetings-filter";
 import { MeetingStatus } from "../../types";
 
-const options = [
+const options: Array<{
+  id: string;
+  value: string;
+  children: React.ReactNode;
+}> = [
   {
     id: MeetingStatus.Upcoming,
     value: MeetingStatus.Upcoming,
@@ -30,7 +34,6 @@ const options = [
       </div>
     ),
   },
-  ,
   {
     id: MeetingStatus.Active,
     value: MeetingStatus.Active,
@@ -62,6 +65,7 @@ const options = [
     ),
   },
 ];
+
 export const StatusFilter = () => {
   const [filters, setFilters] = useMeetingsFilters();
   return (
@@ -71,6 +75,9 @@ export const StatusFilter = () => {
       options={options}
       onSelect={(value) => setFilters({ status: value as MeetingStatus })}
       value={filters.status ?? ""}
+      onSearch={function (value: string): void {
+        throw new Error("Function not implemented.");
+      }}
     />
   );
 };
