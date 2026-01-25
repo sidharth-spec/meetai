@@ -45,7 +45,7 @@ export const CommandSelect = ({
         className={cn(
           "h-9 justify-between font-normal px-2",
           !selectedOption && "text-muted-foreground",
-          className
+          className,
         )}
       >
         <div>{selectedOption?.children ?? placeholder}</div>

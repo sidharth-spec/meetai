@@ -12,13 +12,13 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerTitle,
-  DrawerDescription,
+  //DrawerDescription,
 } from "@/components/ui/drawer";
 interface ResponsiveDialogProps {
   title: string;
   description: string;
   children: React.ReactNode;
-  open: Boolean;
+  open: boolean;
   onOpenChange: (open: boolean) => void;
 }
 export const ResponsiveDialog = ({

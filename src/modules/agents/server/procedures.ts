@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { and, count, desc, eq, getTableColumns, ilike, sql } from "drizzle-orm";
+import { and, count, desc, eq, getTableColumns, ilike } from "drizzle-orm";
 import { db } from "@/db";
-import { agents } from "@/db/schema";
+import { agents, meetings } from "@/db/schema";
 import {
   createTRPCRouter,
   premiumProcedure,
@@ -57,8 +57,8 @@ export const agentsRouter = createTRPCRouter({
     .query(async ({ input, ctx }) => {
       const [existingAgent] = await db
         .select({
-          meetingCount: sql<number>`5`,
           ...getTableColumns(agents),
+          meetingCount: db.$count(meetings, eq(agents.id, meetings.agentId)),
         })
         .from(agents)
         .where(
@@ -84,7 +84,10 @@ export const agentsRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const { search, page, pageSize } = input;
       const data = await db
-        .select({ meetingCount: sql<number>`5`, ...getTableColumns(agents) })
+        .select({
+          ...getTableColumns(agents),
+          meetingCount: db.$count(meetings, eq(agents.id, meetings.agentId)),
+        })
         .from(agents)
         .where(
           and(
